@@ -44,3 +44,36 @@ class Perceptron:
                 update = self.lr * (y_[idx] - y_predicted)
                 self.weights += update * x_i  # Actualización de los pesos
                 self.bias += update           # Actualización del sesgo
+    
+    # Método para predecir
+    def predict(self, X):
+        # Cálculo de la salida lineal y predicción
+        linear_output = np.dot(X, self.weights) + self.bias
+        y_predicted = self.activation_func(linear_output)
+        return y_predicted
+
+# Pruebas del perceptrón
+if __name__ == "__main__":
+    # Imports
+    import matplotlib.pyplot as plt
+    from sklearn.model_selection import train_test_split
+    from sklearn import datasets
+
+    # Función para calcular la precisión de las predicciones
+    def accuracy(y_true, y_pred):
+        accuracy = np.sum(y_true == y_pred) / len(y_true)
+        return accuracy
+
+    # Generar un conjunto de datos de prueba
+    X, y = datasets.make_blobs(
+        n_samples=150, n_features=2, centers=2, cluster_std=1.05, random_state=2
+    )
+    
+    # Dividir los datos en entrenamiento y prueba
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=123
+    )
+
+    # Inicializar y entrenar el perceptrón
+    p = Perceptron(learning_rate=0.01, n_iters=1000)
+    p.fit(X_train, y_train)
