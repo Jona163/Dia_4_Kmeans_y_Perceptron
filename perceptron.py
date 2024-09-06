@@ -21,7 +21,7 @@ class Perceptron:
         self.activation_func = unit_step_func  # Función de activación (escalón unitario)
         self.weights = None      # Pesos (inicialmente indefinidos)
         self.bias = None         # Sesgo (inicialmente indefinido)
-        
+
     # Método para entrenar el perceptrón
     def fit(self, X, y):
         n_samples, n_features = X.shape  # Obtener el número de muestras y características
@@ -44,7 +44,7 @@ class Perceptron:
                 update = self.lr * (y_[idx] - y_predicted)
                 self.weights += update * x_i  # Actualización de los pesos
                 self.bias += update           # Actualización del sesgo
-    
+
     # Método para predecir
     def predict(self, X):
         # Cálculo de la salida lineal y predicción
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # Inicializar y entrenar el perceptrón
     p = Perceptron(learning_rate=0.01, n_iters=1000)
     p.fit(X_train, y_train)
-
+    
     # Predecir sobre los datos de prueba
     predictions = p.predict(X_test)
 
@@ -108,4 +108,3 @@ if __name__ == "__main__":
 
     # Mostrar la gráfica
     plt.show()
-
