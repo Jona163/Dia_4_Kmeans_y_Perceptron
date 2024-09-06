@@ -60,3 +60,17 @@ class KMeans:
                 labels[sample_idx] = cluster_idx
 
         return labels
+
+    def _create_clusters(self, centroids):
+        # asignar el sample para el closest del centroide
+        clusters = [[] for _ in range(self.K)]
+        for idx, sample in enumerate(self.X):
+            centroid_idx = self._closest_centroid(sample, centroids)
+            clusters[centroid_idx].append(idx)
+        return clusters
+
+    def _closest_centroid(self, sample, centroids):
+        # distancia para el current sample para cada centroid
+        distances = [euclidean_distance(sample, point) for point in centroids]
+        closest_idx = np.argmin(distances)
+        return closest_idx
