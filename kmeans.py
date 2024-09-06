@@ -87,3 +87,16 @@ class KMeans:
         # distancias entre el viejo hombre y el nuevo centroide para todos los centroides
         distances = [euclidean_distance(centroids_old[i], centroids[i]) for i in range(self.K)]
         return sum(distances) == 0
+
+    def plot(self):
+        fig, ax = plt.subplots(figsize=(12, 8))
+
+        for i, index in enumerate(self.clusters):
+            point = self.X[index].T
+            ax.scatter(*point)
+
+        for point in self.centroids:
+            ax.scatter(*point, marker="x", color="black", linewidth=2)
+
+        plt.show()
+        exit()
