@@ -51,3 +51,12 @@ class KMeans:
 
         # clasificar los samples de el indice para los clusters
         return self._get_cluster_labels(self.clusters)
+
+    def _get_cluster_labels(self, clusters):
+        # para el sample para obtener el label para el cluster y una asignacion 
+        labels = np.empty(self.n_samples)
+        for cluster_idx, cluster in enumerate(clusters):
+            for sample_idx in cluster:
+                labels[sample_idx] = cluster_idx
+
+        return labels
