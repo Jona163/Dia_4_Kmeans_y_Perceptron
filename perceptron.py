@@ -77,3 +77,35 @@ if __name__ == "__main__":
     # Inicializar y entrenar el perceptrón
     p = Perceptron(learning_rate=0.01, n_iters=1000)
     p.fit(X_train, y_train)
+
+    # Predecir sobre los datos de prueba
+    predictions = p.predict(X_test)
+
+    # Imprimir la precisión del perceptrón
+    print("Precisión de la clasificación del Perceptrón:", accuracy(y_test, predictions))
+
+    # Visualización de los resultados
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    
+    # Graficar las muestras de entrenamiento
+    plt.scatter(X_train[:, 0], X_train[:, 1], marker="o", c=y_train)
+
+    # Calcular la línea de decisión del perceptrón
+    x0_1 = np.amin(X_train[:, 0])
+    x0_2 = np.amax(X_train[:, 0])
+
+    x1_1 = (-p.weights[0] * x0_1 - p.bias) / p.weights[1]
+    x1_2 = (-p.weights[0] * x0_2 - p.bias) / p.weights[1]
+
+    # Graficar la línea de decisión
+    ax.plot([x0_1, x0_2], [x1_1, x1_2], "k")
+
+    # Ajustar los límites del eje y para mejor visualización
+    ymin = np.amin(X_train[:, 1])
+    ymax = np.amax(X_train[:, 1])
+    ax.set_ylim([ymin - 3, ymax + 3])
+
+    # Mostrar la gráfica
+    plt.show()
+
