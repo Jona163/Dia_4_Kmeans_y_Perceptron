@@ -22,3 +22,32 @@ class KMeans:
 
         #  El centro de los (mean vector) para cada cluster
         self.centroids = []
+
+     def predict(self, X):
+        self.X = X
+        self.n_samples, self.n_features = X.shape
+
+        # inicializaciòn
+        random_sample_idxs = np.random.choice(self.n_samples, self.K, replace=False)
+        self.centroids = [self.X[idx] for idx in random_sample_idxs]
+
+        # optimizacion de clusters
+        for _ in range(self.max_iters):
+            # assign samples to closest centroids (create clusters)
+            self.clusters = self._create_clusters(self.centroids)
+
+            if self.plot_steps:
+                self.plot()
+
+            # calcular nuevos centroides para el clusters
+            centroids_old = self.centroids
+            self.centroids = self._get_centroids(self.clusters)
+
+            if self._is_converged(centroids_old, self.centroids):
+                break
+
+            if self.plot_steps:
+                self.plot()
+
+        # clasificar los samples de el indice para los clusters
+        return self._get_cluster_labels(self.clusters)
