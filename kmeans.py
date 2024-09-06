@@ -26,7 +26,7 @@ class KMeans:
         #  El centro de los (mean vector) para cada cluster
         self.centroids = []
 
-
+    #definicion para la parte predictiva 
     def predict(self, X):
         self.X = X
         self.n_samples, self.n_features = X.shape
