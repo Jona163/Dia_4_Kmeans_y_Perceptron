@@ -74,3 +74,16 @@ class KMeans:
         distances = [euclidean_distance(sample, point) for point in centroids]
         closest_idx = np.argmin(distances)
         return closest_idx
+
+    def _get_centroids(self, clusters):
+        # asignacion hombre valor para el cluster del centroide
+        centroids = np.zeros((self.K, self.n_features))
+        for cluster_idx, cluster in enumerate(clusters):
+            cluster_mean = np.mean(self.X[cluster], axis=0)
+            centroids[cluster_idx] = cluster_mean
+        return centroids
+
+    def _is_converged(self, centroids_old, centroids):
+        # distancias entre el viejo hombre y el nuevo centroide para todos los centroides
+        distances = [euclidean_distance(centroids_old[i], centroids[i]) for i in range(self.K)]
+        return sum(distances) == 0
