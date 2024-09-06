@@ -4,6 +4,12 @@
 # GitHub: https://github.com/Jona163
 
 #Nota: Para detener el proceso de ejecucion terminar la terminal o CONTROL+C para cerrar el proceso de ejecucion.
+
+# Autor: Jonathan Hernández
+# Fecha: 05 Septiembre 2024
+# Descripción: Código para una simulación de los Kmeans
+# GitHub: https://github.com/Jona163
+
 #Importacion de las librerias 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,7 +30,8 @@ class KMeans:
         #  El centro de los (mean vector) para cada cluster
         self.centroids = []
 
-     def predict(self, X):
+
+    def predict(self, X):
         self.X = X
         self.n_samples, self.n_features = X.shape
 
@@ -53,6 +60,7 @@ class KMeans:
         # clasificar los samples de el indice para los clusters
         return self._get_cluster_labels(self.clusters)
 
+
     def _get_cluster_labels(self, clusters):
         # para el sample para obtener el label para el cluster y una asignacion 
         labels = np.empty(self.n_samples)
@@ -61,6 +69,7 @@ class KMeans:
                 labels[sample_idx] = cluster_idx
 
         return labels
+
 
     def _create_clusters(self, centroids):
         # asignar el sample para el closest del centroide
@@ -75,6 +84,7 @@ class KMeans:
         distances = [euclidean_distance(sample, point) for point in centroids]
         closest_idx = np.argmin(distances)
         return closest_idx
+
 
     def _get_centroids(self, clusters):
         # asignacion hombre valor para el cluster del centroide
@@ -101,6 +111,8 @@ class KMeans:
 
         plt.show()
         exit()
+
+
 # Testeo
 if __name__ == "__main__":
     np.random.seed(42)
